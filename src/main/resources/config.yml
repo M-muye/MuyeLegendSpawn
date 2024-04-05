@@ -1,0 +1,135 @@
+#插件变量:  神兽刷新时间: %mls_time% 神兽刷新概率: %mls_chance%
+#插件权限节点: (vip权限节点:MuyeLegendSpawn.vip)
+Format: #当时间不到一个小时返回time2，不足一分钟返回time3
+  time1: "&f%hour%&7&o时&f%minutes%&7&o分&f%seconds%&7&o秒"
+  time2: "&f%minutes%&7&o分&f%seconds%&7&o秒"
+  time3: "&c%seconds%&f&o秒"
+Trust: #信任设置
+  Number: #信任名单上限，最高不可超过27人
+    default: 3 #默认可添加3个人
+    vip: 5
+TeleportConsume: 3000 #传送金币消耗
+World:
+  TurnOn: true #开启世界黑名单
+  list: #禁止刷神的世界
+    - "zc"
+RefreshLegend: #刷神设置
+  ProtectRange: 100 #神兽守护距离
+  ProtectTime: #神兽保护时间，单位分钟
+    default: 5
+    vip: 10
+  Chance: "0.8 + 0.01 * %players%" #神兽刷新概率，超过1算作1，0.1就是百分之十，可做变量运算，支持变量(服务器玩家人数: %players%)
+  RefreshTime: "2400 - %players% * 20;2400 - %players% * 10" #神兽刷新时间(最低神兽刷新时间;最高神兽刷新时间)，单位秒，可做变量运算，支持变量(服务器玩家人数: %players%)
+LegendAttributes: #神兽属性
+  Blacklist: #神兽黑名单
+    - "阿尔宙斯"
+  ReplaceList: #神兽替换列表(需要被替换的神兽-替换的神兽)，刷出指定神兽则被替换为其他神兽，判定优先级在黑名单后面，所以假如需要替换的神兽在黑名单里则不会发生替换
+    - "炎帝-水君"
+  Ivs=0: false #个体值全部为0
+  IvsTurOn: true #是否开启个体概率
+  Ivs: #神兽个体多少v的概率(数字占总和的比例为概率)
+    0v: 10
+    1v: 10
+    2v: 10
+    3v: 10
+    4v: 10
+    5v: 10
+    6v: 10
+  Lore: #悬浮文本介绍
+    - "&b&l神兽&f: %pokemon% &7Lv.&f%level%"
+    - "&7&l➮ &b个体进度 &7( &f%ivstotal% &7)"
+    - " &7&l▪&f血量:&7&o %ivHp% &f攻击:&7&o %ivAttack% &f特攻:&7&o %ivSpecialAttack%"
+    - " &7&l▪&f防御:&7&o %ivDefence% &f特防:&7&o %ivSpecialDefence% &f速度:&7&o %ivSpeed%"
+    - "&7&l➮ &b努力值进度 &7( &f%evstotal% &7)"
+    - " &7&l▪&f血量:&7&o %evHp% &f攻击:&7&o %evAttack% &f特攻:&7&o %evSpecialAttack%"
+    - " &7&l▪&f防御:&7&o %evDefence% &f特防:&7&o %evSpecialDefence% &f速度:&7&o %evSpeed%"
+    - "&7&l➮ &b基础信息"
+    - " &7&l▪&f性格: &7&o%nature% &f性别: &7&o%gender%"
+    - " &7&l▪&f体型: &7&o%growth% &f特性: &7&o%ability%"
+    - " &7&l▪&f道具: &7&o%helditem% &f闪光: &7&o%shiny%"
+    - "&7&l➮ &b技能信息"
+    - " &7&l▪&f%moves%"
+CountDown: #倒计时
+  TurnOn: true
+  time: 10
+  commands: #倒计时执行指令，均为控制台执行一次
+    #什么都不加默认为控制台执行指令
+    #players: 改为控制台对全部在线玩家执行，例如players: msg %player% 1 1
+    #broadcast: 改为全服通知
+    #title: 改为对全体在线玩家发送标题(title: 标题;副标题;显示时间;停留时间;消失时间)
+    #sound: 改为对全体在线玩家发送音效(title: 标题;副标题;显示时间;停留时间;消失时间)
+    - "title: &7『&9&l夜 &f✯ &3&l辰&7』;&f神兽即将在%mls_time%后刷新;10;10;10"
+    - "broadcast: &7『&9&l夜 &f✯ &3&l辰&7』 &7神兽还有 &f%mls_time% &7刷新"
+Looping: #循环播报
+  TurnOn: true
+  time: 300
+  commands:
+    - "title: &7『&9&l夜 &f✯ &3&l辰&7』;&f神兽即将在%mls_time%后刷新;20;40;20"
+    - "broadcast: &7『&9&l夜 &f✯ &3&l辰&7』 &7神兽还有 &f%mls_time% &7刷新"
+Success: #神兽刷新成功执行
+  TurnOn: true
+  commands:
+    #此处指令改变变量 %player%(神兽守护玩家)，且添加动作:
+    #player-title: 对守护玩家发送标题
+    #player-sound: 对守护玩家发送音效
+    #NoPlayer: 对在线非守护玩家执行指令(控制台，此动作非守护玩家变量名为%noplayer%)
+    #NoPlayer-sound: 对在线非守护玩家发送音效
+    #NoPlayer-title: 对在线非守护玩家发送标题
+    - "player-title: &7『&9&l夜 &f✯ &3&l辰&7』;&f&l你被神兽守护了!;10;60;10"
+    - "player-sound: ENTITY_PLAYER_LEVELUP"
+    - "NoPlayer-sound: ENTITY_ITEM_BREAK"
+    - "NoPlayer-title: &7『&9&l夜 &f✯ &3&l辰&7』;&7&l神兽未守护你，但还是给你留下了一颗钻石;10;60;10"
+    - "NoPlayer: give %noplayer% diamond 1"
+Fail: #神兽刷新失败执行
+  TurnOn: true
+  commands:
+    - "broadcast: &7『&9&l夜 &f✯ &3&l辰&7』 &7神兽降临失败，奖励大家一个钻石吧"
+    - "players: give %player% diamond 1"
+Empty: #神兽刷空重新刷
+  TurnOn: true
+  Times: 5 #神兽刷空后重复判断5次
+  commands:
+    - "broadcast: &7『&9&l夜 &f✯ &3&l辰&7』 &7神兽降临错误，正在重新降临!"
+Gui:
+  BackCommand: "trm open 主菜单 %player%" #界面返回指令
+Messages: #信息文本
+  Prefix: "&7『&9&l夜 &f✯ &3&l辰&7』 &7"
+  Reload: "重载成功!"
+  UnKnown: "未知指令!"
+  OpenGui: "%player% 打开了信任名单"
+  NotFound: "未找到该玩家"
+  AddToTrust: "&7你将 &f%goal% &7加入了信任名单"
+  AlreadyAdded: "你的信任名单里已经有了 &f%goal%"
+  ReachUpperLimit: "添加失败，你的信任同伴数量达到上限!"
+  AddYourself: "添加失败，不能添加自己!"
+  DeleteFromTrust: "&7你将 &f%goal% &7从信任名单中删除"
+  DeleteError: "删除失败，此玩家不在你的信任名单中"
+  Refresh: "&f[&b&l%pokemon%&f] &7降临在 &f%player% &7身边，守护时长: &f%time% &7分钟，&7坐标: &fX:%x% Y:%y% Z:%z%"
+  FailRefresh: "&c神兽降临失败!"
+  Broadcast: "&f鼠标拖动到上面即可查看神兽属性"
+  Teleport: "&f你受到了神兽的守护，守护时间内点击可消耗 &e%money% &f传送至神兽旁"
+  SuccessTeleport: "&a成功传送!"
+  FailTeleport: "&7传送失败!"
+  NoMoney: "&7没钱传送个锤子，自己找去"
+  Ending: "&b&l%pokemon% &c对 &f%player% &c的守护时间结束！"
+  Protect: "&c该神兽正在守护 &b&l%player% &c!"
+  TrustBattle: "&7你的信任玩家 &f%goal% &7已经与精灵发起战斗"
+  TrustCapture: "&7你的信任玩家 &f%goal% &7已经与精灵发起捕捉"
+
+################################ 以下功能为付费功能（请联系作者购买付费版，40r）
+Lucky: #基础幸运值为0，神兽刷新后未被守护玩家增加幸运值，下次神兽刷新被守护概率更大
+  TurnOn: true
+  Add: "%lucky% + 1" #未被守护后增加的幸运值
+  Clear: true #守护后清空幸运值
+Online: #根据在线时间增加幸运值
+  TurnOn: True
+  Add: "%lucky% + %online% * 0.05" #(变量在线时间: %online%)
+Sticking: #防止卡点
+  TurnOn: true
+  Online: 10 #上线10分钟后才会被计入神兽可守护玩家
+Ip: #防小号，IP相同只有一个号会被计入神兽可守护玩家
+  TurnOn: true
+Second: #神兽双黄蛋
+  TurnOn: true
+  PlayerNumber: 10 #当人数超过
+

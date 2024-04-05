@@ -1,0 +1,10 @@
+name: MuyeLegendSpawn
+version: '1.0-SNAPSHOT'
+main: com.muye.muyelegendspawn.MuyeLegendSpawn
+depend:
+  - PlaceholderAPI
+  - Vault
+commands:
+  MuyeLegendSpawn:
+    aliases:
+      - mls

@@ -11,14 +11,28 @@ repositories {
         name = "spigotmc-repo"
         url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
     }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } //bungeecord
     maven {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven { url 'https://jitpack.io' } //vault
+    maven {
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' //papi
+    }
+    maven {
+        name "ayStudio RepositorySnapshots"
+        url "https://repo.mc9y.com/snapshots" //AyCore
+    }
 }
 
 dependencies {
-compileOnly "org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT"
+    compileOnly "org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT"
+    compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.5'
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    compileOnly(fileTree(dir:'libs',includes:['*jar']))
+    implementation("com.aystudio.core:AyCore:1.2.0-BETA")
 }
 
 def targetJavaVersion = 8
