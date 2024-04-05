@@ -1,0 +1,3 @@
+name: MuyeLegendSpawn
+version: '${version}'
+main: com.muye.muyelegendspawn.MuyeLegendSpawn
